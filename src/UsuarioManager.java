@@ -117,17 +117,33 @@ public class UsuarioManager {
     }
 
 
+    /**
+     * Método para eliminar un usuario de la base de datos mediante su ID.
+     * Se solicita al usuario ingresar el ID del usuario a eliminar. Luego, se ejecuta
+     * una consulta SQL de eliminación en la tabla de usuarios utilizando el ID proporcionado.
+     *
+     * @param connection La conexión a la base de datos.
+     */
     public static void eliminarUsuario(Connection connection) {
+        // Solicitar al usuario el ID del usuario a eliminar
         System.out.print("Ingrese el ID del usuario a eliminar: ");
-        int id_usuario = scanner.nextInt();
+        int idUsuario = scanner.nextInt();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?")) {
-            preparedStatement.setInt(1, id_usuario);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "DELETE FROM usuarios WHERE id_usuario=?")) {
+            // Establecer el valor del ID en la consulta preparada
+            preparedStatement.setInt(1, idUsuario);
+
+            // Ejecutar la consulta de eliminación
             preparedStatement.executeUpdate();
+
+            // Informar al usuario que el usuario ha sido eliminado exitosamente
             System.out.println("*************Usuario eliminado exitosamente.*************");
         } catch (SQLException e) {
+            // Imprimir detalles del error en caso de excepción
             e.printStackTrace();
             System.out.println("---------------Error al eliminar el usuario.---------------");
         }
     }
+
 }
