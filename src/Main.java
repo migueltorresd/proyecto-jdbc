@@ -26,13 +26,15 @@ public class Main {
         UsuarioManager usuarioManager = new UsuarioManager();
 
         while (true) {
-            System.out.println("\nMenú:");
-            System.out.println("1. Crear usuario");
-            System.out.println("2. Consultar usuarios");
-            System.out.println("3. Actualizar usuario");
-            System.out.println("4. Eliminar usuario");
-            System.out.println("5. Salir");
-            System.out.print("Elige una opción: ");
+            System.out.println("\n|--------------Menú:--------------|");
+            System.out.println("|1. Crear usuario                 |");
+            System.out.println("|2. Consultar usuarios            |");
+            System.out.println("|3. Actualizar usuario            |");
+            System.out.println("|4. Eliminar usuario              |");
+            System.out.println("|5. Salir                         |");
+            System.out.println("|---------------------------------|");
+            System.out.print("|Elige una opción: ");
+
 
             int opcion = scanner.nextInt();
 
