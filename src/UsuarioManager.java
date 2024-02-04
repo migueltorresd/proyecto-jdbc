@@ -75,5 +75,59 @@ public class UsuarioManager {
             System.out.println("Error al consultar usuarios.");
         }
     }
+    /**
+     * Método para actualizar la información de un usuario en la base de datos.
+     * Se solicita al usuario ingresar el ID del usuario a actualizar, el nuevo nombre
+     * y el nuevo correo. Luego, se ejecuta una consulta SQL de actualización en la
+     * tabla de usuarios con los nuevos datos proporcionados.
+     *
+     * @param connection La conexión a la base de datos.
+     */
+    public static void actualizarUsuario(Connection connection) {
+        // Solicitar al usuario el ID del usuario a actualizar
+        System.out.print("Ingrese el ID del usuario a actualizar: ");
+        int idUsuario = scanner.nextInt();
+        scanner.nextLine(); // Consumir la nueva línea después de nextInt()
 
+        // Solicitar al usuario el nuevo nombre del usuario
+        System.out.print("Ingrese el nuevo nombre del usuario: ");
+        String nuevoNombre = scanner.nextLine();
+
+        // Solicitar al usuario el nuevo correo del usuario
+        System.out.print("Ingrese el nuevo correo del usuario: ");
+        String nuevoCorreo = scanner.nextLine();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                "UPDATE usuarios SET nombre=?, correo=? WHERE id_usuario=?")) {
+            // Establecer los valores en la consulta preparada
+            preparedStatement.setString(1, nuevoNombre);
+            preparedStatement.setString(2, nuevoCorreo);
+            preparedStatement.setInt(3, idUsuario);
+
+            // Ejecutar la consulta de actualización
+            preparedStatement.executeUpdate();
+
+            // Informar al usuario que la actualización fue exitosa
+            System.out.println("Usuario actualizado exitosamente.");
+        } catch (SQLException e) {
+            // Imprimir detalles del error en caso de excepción
+            e.printStackTrace();
+            System.out.println("Error al actualizar el usuario.");
+        }
+    }
+
+
+    public static void eliminarUsuario(Connection connection) {
+        System.out.print("Ingrese el ID del usuario a eliminar: ");
+        int id_usuario = scanner.nextInt();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?")) {
+            preparedStatement.setInt(1, id_usuario);
+            preparedStatement.executeUpdate();
+            System.out.println("*************Usuario eliminado exitosamente.*************");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("---------------Error al eliminar el usuario.---------------");
+        }
+    }
 }
